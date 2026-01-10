@@ -20,7 +20,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Fade ref={ref} {...props} timeout={500} />;
 });
 
-const ProductDetailsModal = ({ open, onClose, product }) => {
+const ProductDetailsModal = ({ open, onClose, product, onAddToCart }) => {
   if (!product) return null;
 
   return (
@@ -33,16 +33,15 @@ const ProductDetailsModal = ({ open, onClose, product }) => {
       PaperProps={{
         sx: {
           borderRadius: 5,
-          background: "rgba(30, 30, 35, 0.6)", // Semi-transparent dark
-          backdropFilter: "blur(20px)", // Heavy blur
+          background: "rgba(30, 30, 35, 0.8)", // Slightly darker for contrast
+          backdropFilter: "blur(20px)",
           border: "1px solid rgba(255, 255, 255, 0.1)",
           boxShadow: "0 25px 50px rgba(0,0,0,0.5)",
-          overflow: "visible", // Allows image to pop out if needed
+          overflow: "visible",
         },
       }}
     >
       <DialogContent sx={{ p: 0, position: "relative" }}>
-        {/* Close Button */}
         <IconButton
           onClick={onClose}
           sx={{
@@ -60,7 +59,9 @@ const ProductDetailsModal = ({ open, onClose, product }) => {
         <Grid container>
           {/* Left Side: Image Showcase */}
           <Grid
-            size={{ xs: 12, md: 5 }}
+            item
+            xs={12}
+            md={5} // Fixed Grid v2 syntax if necessary, standard v5 used here for safety
             sx={{
               background: `linear-gradient(135deg, ${product.color}22 0%, rgba(0,0,0,0) 100%)`,
               display: "flex",
@@ -70,18 +71,17 @@ const ProductDetailsModal = ({ open, onClose, product }) => {
               minHeight: 400,
             }}
           >
+            {/* THIS IS THE KEY CHANGE FOR ZOOM ANIMATION */}
             <motion.img
-              initial={{ scale: 0.8, rotate: -10, opacity: 0 }}
-              animate={{ scale: 1, rotate: 0, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
+              layoutId={`image-${product.title}`}
               src={product.img}
               alt={product.title}
               style={{
-                width: 250, // Fixed width
-                height: 250, // Fixed height
+                width: 250,
+                height: 250,
                 objectFit: "cover",
-                borderRadius: "50%", // Circle
-                border: `6px solid rgba(255,255,255,0.2)`, // Nice glass border
+                borderRadius: "50%",
+                border: `6px solid rgba(255,255,255,0.2)`,
                 boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
               }}
             />
@@ -97,7 +97,6 @@ const ProductDetailsModal = ({ open, onClose, product }) => {
               justifyContent: "center",
             }}
           >
-            {/* Header */}
             <Box mb={2}>
               <Typography
                 variant="overline"
@@ -118,7 +117,6 @@ const ProductDetailsModal = ({ open, onClose, product }) => {
               </Box>
             </Box>
 
-            {/* Description */}
             <Typography
               variant="body1"
               color="text.secondary"
@@ -130,7 +128,6 @@ const ProductDetailsModal = ({ open, onClose, product }) => {
               preservatives, no added sugar, just pure refreshment.
             </Typography>
 
-            {/* Ingredients Tags */}
             <Box sx={{ mb: 4 }}>
               <Typography
                 variant="subtitle2"
@@ -156,7 +153,6 @@ const ProductDetailsModal = ({ open, onClose, product }) => {
               </Box>
             </Box>
 
-            {/* Footer: Price & Action */}
             <Box
               display="flex"
               alignItems="center"
@@ -167,12 +163,13 @@ const ProductDetailsModal = ({ open, onClose, product }) => {
                 ${product.price}
               </Typography>
               <Button
+                onClick={onAddToCart}
                 variant="contained"
                 size="large"
                 startIcon={<LocalDrinkIcon />}
                 sx={{
                   backgroundColor: product.color,
-                  boxShadow: `0 8px 20px ${product.color}66`, // Colored glow
+                  boxShadow: `0 8px 20px ${product.color}66`,
                   padding: "12px 32px",
                   "&:hover": {
                     backgroundColor: product.color,

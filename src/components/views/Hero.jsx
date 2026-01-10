@@ -11,7 +11,6 @@ const Hero = () => {
       sx={{ display: "flex", alignItems: "center", mt: 10 }}
     >
       <Grid container spacing={4} alignItems="center">
-        {/* Left Side: Text Content */}
         <Grid size={{ xs: 12, md: 6 }}>
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -62,9 +61,7 @@ const Hero = () => {
           </motion.div>
         </Grid>
 
-        {/* Right Side: 3D/Image Visual */}
         <Grid size={{ xs: 12, md: 6 }} sx={{ position: "relative" }}>
-          {/* Animated Blob Background */}
           <Box
             component={motion.div}
             animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
@@ -83,7 +80,6 @@ const Hero = () => {
             }}
           />
 
-          {/* Product Image Placeholder */}
           <motion.img
             src="https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
             alt="Orange Juice Bottle"
@@ -99,7 +95,7 @@ const Hero = () => {
               borderRadius: "8px",
               width: "700px",
               height: "500px",
-              filter: "drop-shadow(0px 20px 30px rgba(0,0,0,0.5))", // Shadow for depth
+              filter: "drop-shadow(0px 20px 30px rgba(0,0,0,0.5))",
               transform: "rotate(15deg)",
             }}
           />

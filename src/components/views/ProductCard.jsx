@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
-// src/components/ProductCard.jsx
 import React from "react";
 import { Card, CardContent, Typography, IconButton, Box } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { motion } from "framer-motion";
 
-const ProductCard = ({ title, price, image, color, onClick }) => {
+const ProductCard = ({ title, price, image, color, onClick, onAddToCart }) => {
   return (
     <motion.div
       whileHover={{ y: -10 }}
@@ -36,6 +35,7 @@ const ProductCard = ({ title, price, image, color, onClick }) => {
             zIndex: 2,
           }}
         >
+          {/* layoutId connects this image to the one in the modal */}
           <motion.img
             src={image}
             alt={title}
@@ -43,10 +43,10 @@ const ProductCard = ({ title, price, image, color, onClick }) => {
             style={{
               height: 140,
               width: 140,
-              objectFit: "cover", // Ensures image doesn't stretch
-              borderRadius: "50%", // Makes it a circle
-              border: `4px solid ${color}`, // Adds a colored ring matching the juice
-              boxShadow: "0 8px 20px rgba(0,0,0,0.3)", // Adds depth
+              objectFit: "cover",
+              borderRadius: "50%",
+              border: `4px solid ${color}`,
+              boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
             }}
           />
         </Box>
@@ -67,11 +67,10 @@ const ProductCard = ({ title, price, image, color, onClick }) => {
             <Typography variant="h6" color={color} fontWeight="900">
               ${price}
             </Typography>
-            {/* Stop propagation ensures clicking the cart button doesn't open the modal */}
             <IconButton
               onClick={(e) => {
                 e.stopPropagation();
-                console.log("Added to cart");
+                onAddToCart();
               }}
               sx={{
                 background: color,
