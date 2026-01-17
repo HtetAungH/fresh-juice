@@ -32,7 +32,7 @@ const ProductDetailsModal = ({ open, onClose, product, onAddToCart }) => {
       fullWidth
       PaperProps={{
         sx: {
-          borderRadius: 5,
+          borderRadius: "8px",
           background: "rgba(30, 30, 35, 0.8)", // Slightly darker for contrast
           backdropFilter: "blur(20px)",
           border: "1px solid rgba(255, 255, 255, 0.1)",
@@ -59,9 +59,7 @@ const ProductDetailsModal = ({ open, onClose, product, onAddToCart }) => {
         <Grid container>
           {/* Left Side: Image Showcase */}
           <Grid
-            item
-            xs={12}
-            md={5} // Fixed Grid v2 syntax if necessary, standard v5 used here for safety
+            size={{ xs: 12, md: 5 }}
             sx={{
               background: `linear-gradient(135deg, ${product.color}22 0%, rgba(0,0,0,0) 100%)`,
               display: "flex",
@@ -148,7 +146,7 @@ const ProductDetailsModal = ({ open, onClose, product, onAddToCart }) => {
                         border: "1px solid rgba(255,255,255,0.1)",
                       }}
                     />
-                  )
+                  ),
                 )}
               </Box>
             </Box>
